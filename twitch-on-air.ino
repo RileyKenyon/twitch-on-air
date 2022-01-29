@@ -16,7 +16,8 @@
 #define HTTP_TIMEOUT      (5000)  // milliseconds
 #define POLLING_INTERVAL  (10000) // milliseconds
 #define PIXEL_DELAY       (50)    // milliseconds
-#define PIXEL_ERR_DELAY   (500)  // milliseconds
+#define PIXEL_ERR_DELAY   (500)   // milliseconds
+#define INTENSITY         (255)
 
 #define START_ADDR        (0x00)  // EEPROM start address
 #define TWITCH_TOKEN_LEN  (30)    // characters
@@ -524,12 +525,12 @@ void theaterChaseRainbow(int wait) {
 // --------------------------------------------------------------------------------
 void set_waiting_led_pattern()
 {
-  theaterChase(strip.Color(127,127,0),PIXEL_DELAY);
+  theaterChase(strip.Color(INTENSITY,INTENSITY,0),PIXEL_DELAY);
 }
 
 void set_startup_led_pattern()
 {
-  theaterChase(strip.Color(0,127,0),PIXEL_DELAY);
+  theaterChase(strip.Color(0,INTENSITY,0),PIXEL_DELAY);
 }
 
 void set_error_led_pattern()
@@ -539,7 +540,7 @@ void set_error_led_pattern()
     strip.clear();
     strip.show();
     delay(PIXEL_ERR_DELAY);
-    uint32_t color = strip.Color(127,0,0);
+    uint32_t color = strip.Color(INTENSITY,0,0);
     for (int pixId = 0; pixId < strip.numPixels(); pixId++)
     {
       strip.setPixelColor(pixId, color);
@@ -553,7 +554,7 @@ void set_active_led_pattern()
 {
   // Solid green
   strip.clear();
-  uint32_t color = strip.Color(0,127,0);
+  uint32_t color = strip.Color(INTENSITY,0,INTENSITY);
   for (int pixId = 0; pixId < strip.numPixels(); pixId++)
   {
     strip.setPixelColor(pixId, color);
@@ -566,7 +567,7 @@ void set_offline_led_pattern()
 {
   // Solid red
   strip.clear();
-  uint32_t color = strip.Color(127,0,0);
+  uint32_t color = strip.Color(INTENSITY,0,0);
   for (int pixId = 0; pixId < strip.numPixels(); pixId++)
   {
     strip.setPixelColor(pixId, color);
@@ -574,4 +575,3 @@ void set_offline_led_pattern()
   strip.show(); // Update strip with all red LEDs
   delay(PIXEL_DELAY);
 }
-
